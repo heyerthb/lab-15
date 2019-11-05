@@ -24,7 +24,7 @@ module.exports = (req, res, next) =>{
     let bufferString = base64Buffer.toString();
     let [username, password] = bufferString.split(':');
     let auth = {username, password};
-    // console.log(auth);
+
     return User.authenticateBasic(auth)
     .then(user => _authenticate(user))
     .catch(_authError);
@@ -44,7 +44,7 @@ module.exports = (req, res, next) =>{
       next();
     }else{
       _authError();
-      console.log('error statement')
+      console.log('error statement');
     }
   }
 

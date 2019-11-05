@@ -8,6 +8,6 @@ const images = new mongoose.Schema({
   description: {type: String},
   url: {type: String},
   created_at: {type: Date}
-})
+});
 
 module.exports = mongoose.model('images', images);

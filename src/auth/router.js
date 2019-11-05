@@ -43,6 +43,7 @@ authRouter.get('/images', auth, (req, res, next) => {
 // });
 // authRouter.get('/images'{
 // });
+
 authRouter.post('/images', auth, (req, res, next) => {
   let image = new Image(req.body);
   image.created_at = new Date();
