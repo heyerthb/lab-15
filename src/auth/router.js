@@ -4,6 +4,7 @@ const express = require('express');
 const authRouter = express.Router();
 
 const User = require('./users-model');
+const Image = require('./images-model');
 const auth = require('./middleware');
 
 authRouter.post('/signup', (req, res, next) =>{
@@ -30,16 +31,29 @@ authRouter.post('/signin', auth, (req, res, next)=>{
 //   res.status(200).send(key)
 // });
 
-// authRouter.get('/images'{
-// });
+authRouter.get('/images', auth, (req, res, next) => {
+  Image.find({})
+  .then(images =>{
+    res.send(images);
+  }).catch(e => next(e));
+});
 // authRouter.get('/image/:id'{
 // });
 // authRouter.get('/image/:userId'{
 // });
 // authRouter.get('/images'{
 // });
-// authRouter.post('/images'{
-// });
+authRouter.post('/images', auth, (req, res, next) => {
+  let image = new Image(req.body);
+  image.created_at = new Date();
+  image.save()
+    .then(image => {
+      res.send(image);
+    })
+    .catch((e) => {
+      next(e);
+    });
+});
 // authRouter.put('/image/:id'{
 // });
 // authRouter.delete('/images/:id'{

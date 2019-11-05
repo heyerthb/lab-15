@@ -34,6 +34,7 @@ module.exports = (req, res, next) =>{
     return User.authenticateToken(authString)
     .then(user => _authenticate(user))
     .catch(_authError);
+
   }
 
   function _authenticate(user){

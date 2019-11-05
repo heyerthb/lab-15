@@ -23,7 +23,7 @@ app.use(notFound);
 app.use(errHandler);
 
 module.exports= {
-  server: app.use,
+  server: app,
   start: (PORT => {
     app.listen(3000, ()=> {
       console.log(`server up on ${PORT}`);

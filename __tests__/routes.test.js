@@ -1,7 +1,8 @@
 'use strict';
 
-const app = require('../src/app');
-const User = require('../src/model/user');
+require('dotenv').config();
+const app = require('../src/server');
+const User = require('../src/auth/users-model');
 const supergoose = require('./supergoose');
 const request = supergoose.server((app.server));
 const jwt = require('jsonwebtoken');
