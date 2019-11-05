@@ -6,25 +6,25 @@ const jwt = require('jsonwebtoken');
 
 // require('./roles-model.js');
 
-const Secret = process.env.SECRET;
+const SECRET = process.env.SECRET;
 
 const usedTokens = new Set();
 
-const users = new mongoose.Schema({
+const user = new mongoose.Schema({
   username: {type: String, required: true, unique: true},
   password: {type: String, require: true},
   email: {type: String},
   role: {type: String, default: 'user', enum: ['admin', 'editor', 'user']}
 });
 
-// const images = new mongoose.Schema({
-//   title: {type: String},
-//   user_id: {type: String},
-//   description: {type: String},
-//   url: {type: String},
-//   created_at: {type: Date}
+const images = new mongoose.Schema({
+  title: {type: String},
+  user_id: {type: String},
+  description: {type: String},
+  url: {type: String},
+  created_at: {type: Date}
 
-// })
+})
 
 const capabilities = {
    admin: ['create', 'read', 'update', 'delete'],
@@ -49,16 +49,19 @@ const capabilities = {
 
 
  user.statics.authenticateBasic = function(auth){
+  // console.log(auth);
    let query = {username: auth.username};
    return this.findOne(query)
    .then(user => user && user.comparePassword(auth.password))
-   .catch(error => {throw error;});
+   .catch(error => {throw error;})
+   .then(console.log(auth, query));
+   
    
 
    };
 
   user.methods.comparePassword =function(password){
-    return brcrypt.compare(password, this.password)
+    return bcrypt.compare(password, this.password)
     .then(valid => valid ? this: null);
   };
 
@@ -68,6 +71,7 @@ const capabilities = {
       capabilities: capabilities[this.role],
       type: type || 'user',
     }
+    let options = {};
   return jwt.sign(token, SECRET, options);
   };
 
@@ -79,4 +83,4 @@ const capabilities = {
     return this.generateToken('key');
   };
 
-module.exports = mongoose.model('users', user);
+module.exports = mongoose.model('user', user);
