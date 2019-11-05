@@ -8,8 +8,6 @@ const jwt = require('jsonwebtoken');
 
 const SECRET = process.env.SECRET;
 
-const usedTokens = new Set();
-
 const user = new mongoose.Schema({
   username: {type: String, required: true, unique: true},
   password: {type: String, require: true},
@@ -50,15 +48,20 @@ const capabilities = {
 
  user.statics.authenticateBasic = function(auth){
   // console.log(auth);
-   let query = {username: auth.username};
-   return this.findOne(query)
+   let user = {username: auth.username};
+   return this.findOne(user)
    .then(user => user && user.comparePassword(auth.password))
    .catch(error => {throw error;})
    .then(console.log(auth, query));
-   
-   
-
-   };
+ };
+  
+ user.statics.authenticateToken = function(token){
+  try {
+    let parsedToken = jwt.verify(token, SECRET);
+    let query = {_id: parsedToken.id};
+    return this.findOne(query);
+    } catch(e) { throw new Error('Invalid Token'); 
+  }};
 
   user.methods.comparePassword =function(password){
     return bcrypt.compare(password, this.password)
@@ -72,8 +75,9 @@ const capabilities = {
       type: type || 'user',
     }
     let options = {};
-  return jwt.sign(token, SECRET, options);
+    return jwt.sign(token, SECRET, options);
   };
+
 
   user.methods.can = function(capability){
     return capabilities [this.role].include(capability);
