@@ -5,9 +5,9 @@
 ### Author: Student/Group Name
 
 ### Links and Resources
-* [submission PR](http://xyz.com)
-* [travis](http://xyz.com)
-* [back-end](http://xyz.com) (when applicable)
+* [submission PR](https://github.com/heyerthb/lab-15/pull/1)
+* [travis](https://travis-ci.com/heyerthb/lab-15)
+* [heroku](https://dashboard.heroku.com/apps/heyert-lab-15/deploy/github)
 * [front-end](http://xyz.com) (when applicable)
 
 #### Documentation
@@ -43,4 +43,4 @@ Usage Notes or examples
 * What assertions need to be / should be made?
 
 #### UML
-Link to an image of the UML for your application and response to events
+/Users/matthewheyert/codefellows/401/lab-15/assets/11-7-19, 1:05 PM Office Lens.jpeg

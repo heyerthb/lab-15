@@ -6,9 +6,10 @@
   "scripts": {
     "start": "node index",
     "test": "jest --verbose --coverage",
-    "lint": "eslint ./src/**/*.js --fix",
+    "lint": "eslint './src/**/*.js' --fix",
     "start:db": "mkdir -p ./db && mongod --dbpath ./db",
-    "watch": "nodemon index.js"
+    "watch": "nodemon index.js",
+    "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
     "eslint": "^6.6.0",
     "express": "^4.17.1",
     "jest": "^24.9.0",
+    "jsdoc": "^3.6.3",
     "jsonwebtoken": "^8.5.1",
     "mongodb-memory-server": "^6.0.1",
     "mongoose": "^5.7.7",

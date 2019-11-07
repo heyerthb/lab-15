@@ -7,12 +7,12 @@ module.exports = (req, res, next) =>{
     let [authType, authString] = req.headers.authorization.split(/\s+/);
 
     switch (authType.toLowerCase()){
-      case 'basic':
-        return _authBasic(authString);
-      case 'bearer':
-        return _authBearer(authString);
-      default:
-        return _authError();
+    case 'basic':
+      return _authBasic(authString);
+    case 'bearer':
+      return _authBearer(authString);
+    default:
+      return _authError();
 
     }
   }catch(e){
@@ -24,16 +24,16 @@ module.exports = (req, res, next) =>{
     let bufferString = base64Buffer.toString();
     let [username, password] = bufferString.split(':');
     let auth = {username, password};
-    // console.log(auth);
+
     return User.authenticateBasic(auth)
-    .then(user => _authenticate(user))
-    .catch(_authError);
+      .then(user => _authenticate(user))
+      .catch(_authError);
   }
 
   function _authBearer(authString){
     return User.authenticateToken(authString)
-    .then(user => _authenticate(user))
-    .catch(_authError);
+      .then(user => _authenticate(user))
+      .catch(_authError);
 
   }
 
@@ -44,7 +44,7 @@ module.exports = (req, res, next) =>{
       next();
     }else{
       _authError();
-      console.log('error statement')
+      console.log('error statement');
     }
   }
 
